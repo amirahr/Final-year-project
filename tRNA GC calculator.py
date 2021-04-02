@@ -58,8 +58,8 @@ def complement(seq):
 
 p = re.compile('\d+')  # \d means digit and + means one or more
 
-#Extracts CDS from the annotation and corrects complement sequences
-def extract_CDS(path):
+#Extracts tRNA from the annotation and corrects complement sequences
+def extract_trna(path):
     with io.open(path, mode="r", encoding="utf-8") as file:
         cds_list = []
         genome = file.readlines()
@@ -83,7 +83,7 @@ genome_dir = "/Users/amirahrafique/Desktop/FYP/GENOMES/Q4- tRNA GC and temperatu
 for path in glob.glob(os.path.join(genome_dir, "*.gbff")):
     # SSL_list = extractinfo(path)
     # txt_file = path.replace(".csv", ".gbff")
-    SSL_list2 = extract_CDS(path)
+    SSL_list2 = extract_trna(path)
     sequences = extract_seq(path)
     id = os.path.splitext(os.path.basename(path))[0]
     gc3_list = extract_genes2(SSL_list2, sequences, id)
