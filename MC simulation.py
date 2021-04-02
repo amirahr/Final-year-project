@@ -1,7 +1,6 @@
 import random
 import numpy as np
 import scipy.stats as st
-import statistics
 
 #MC sim
 counter = 0
@@ -43,7 +42,7 @@ observed = np.array([5, 4, 3, 3, 3, 2])
 expected = np.array([20/6, 20/6, 20/6, 20/6, 20/6, 20/6])
 chisq_orig = st.chisquare(observed, expected)
 
-print (chisq_orig[0]) #Gives chisq value to use in your analysis
+print (chisq_orig[0]) #Gives chisq value to use
 print (chisq_orig[1]) #Gives p-value
 
 
