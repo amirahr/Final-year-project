@@ -3,6 +3,7 @@ import io
 import glob
 import re
 from Bio.Seq import Seq
+
 from Bio.SeqUtils import GC123
 import pandas as pd
 
@@ -71,9 +72,9 @@ def extract_CDS(path):
         cds_list = []
         genome = file.readlines()
         for line in genome:
-            if "tRNA " in line[0:21]:
+            if "CDS " in line[0:21]:
                 m = p.findall(line)
-                assert len(m) == 2, line
+                assert len(m) % 2 == 0, line
                 m = [int(x) for x in m]
                 is_complement = "complement" in line
                 cds_list.append(m + [is_complement])
@@ -86,7 +87,7 @@ GC3_list = list()
 ID_list = list()
 
 #Apply the functions
-genome_dir = "/Users/amirahrafique/Desktop/FYP/GENOMES/Q1 - Genome size vs ecology/60 base genomes"
+genome_dir = "/Users/amirahrafique/Desktop/FYP/GENOMES/Q1 - Genome size vs ecology/problem"
 for path in glob.glob(os.path.join(genome_dir, "*.gbff")):
     print(path)
     SSL_list2 = extract_CDS(path)
@@ -98,8 +99,9 @@ for path in glob.glob(os.path.join(genome_dir, "*.gbff")):
     ID_list += len(gc3_list) * [id]
 
 #Write results to a CSV
-df = pd.DataFrame({'ID': ID_list, 'tRNA_GC': GC3_list})
-df = df.groupby('ID', as_index=False)['tRNA_GC'].mean()
+df = pd.DataFrame({'ID': ID_list, 'mean GC3 %': GC3_list})
+df = df.groupby('ID', as_index=False)['mean GC3 %'].mean()
 df.to_csv(
-    r'/Users/amirahrafique/Desktop/FYP/GENOMES/Q1 - Genome size vs ecology/GC3 and tRNA GC of trio/tRNA_trio.csv', index=False)
+    r'/Users/amirahrafique/Desktop/FYP/GENOMES/Q1 - Genome size vs ecology/GC3 and tRNA GC of trio/GC3_trio.csv',
+    index=False)
 print(df)
