@@ -5,7 +5,7 @@ library(scales)
 library(extrafont)
 library(ggpmisc)
 
-df <- read_excel("Desktop/gcvsogt.xlsx")
+df <- read_excel("Desktop/gcvsogt_workable.xlsx")
 df$y <- 2 + 3 * df$x + rnorm(100, sd = 40)
 my.formula <- y ~ x
 p <- ggplot(df, aes(OGT, tRNA_GC)) + geom_point() + geom_smooth(method=lm, se = FALSE, colour = '#7570B3', formula = my.formula) + stat_poly_eq(formula = my.formula, aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")), parse = TRUE) + ylab("tRNA GC (%)") + xlab("Optimum Growth Temperature (°C)") + scale_x_continuous(breaks = seq(0, 100, by = 10)) + theme( 
