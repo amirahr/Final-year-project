@@ -29,7 +29,7 @@ df2 <- read_excel("Desktop/residuals_workable.xlsx")
 df2$y <- 2 + 3 * df2$x + rnorm(100, sd = 40)
 my.formula <- y ~ x
 
-p2 <- ggplot(df2, aes(OGT, Residuals) + geom_point() + geom_smooth(method=lm, se = FALSE, colour = '#7570B3', formula = my.formula) + stat_poly_eq(formula = my.formula, aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")), parse = TRUE) + ylab("Residuals") + xlab("OGT (ºC)") + theme( 
+p2 <- ggplot(df2, aes(OGT, Residuals) + geom_point() + scale_x_continuous(breaks = seq(0, 100, by = 10)) + geom_smooth(method=lm, se = FALSE, colour = '#7570B3', formula = my.formula) + stat_poly_eq(formula = my.formula, aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")), parse = TRUE) + ylab("Residuals") + xlab("Optimum Growth Temperature (ºC)") + theme( 
   panel.background = element_rect(fill = "white", colour = "white",
                                   size = 2, linetype = "solid"),
   panel.grid.major = element_line(size = 0.25, linetype = 'solid',
